@@ -1,26 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Liberation+Sans:wght@400;700&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-black-bg: #0B0F14;
+  --color-form-bg: #111926;
+  --color-white-secondary: #8DA2B8;
+  --color-green-success: #33D17A;
+  --color-error-red: #DF1C41;
+  --color-warning-yellow: #EB3D4D;
+  --color-border-light: rgba(254, 254, 254, 0.10);
+  --color-border-medium: rgba(254, 254, 254, 0.50);
+  
+  --font-family-liberation: "Liberation Sans", sans-serif;
+  
+  --radius-lg: 12px;
+  --radius-xl: 32px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    background-color: var(--color-black-bg);
+    color: white;
+    font-family: var(--font-family-liberation);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background-color: var(--color-form-bg);
+    border-radius: var(--radius-lg);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-medium);
+    border-radius: var(--radius-lg);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-white-secondary);
+  }
+  
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px rgba(254, 254, 254, 0.10);
+  }
+}
+
+@layer utilities {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
 }

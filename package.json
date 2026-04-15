@@ -9,19 +9,38 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.2.2",
+    "@reduxjs/toolkit": "^2.11.2",
+    "@tanstack/react-query": "^5.99.0",
+    "axios": "^1.15.0",
+    "clsx": "^2.1.1",
+    "highcharts": "^12.6.0",
+    "highcharts-react-official": "^3.2.3",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^1.8.0",
     "next": "16.2.3",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.72.1",
+    "react-hot-toast": "^2.6.0",
+    "react-redux": "^9.2.0",
+    "recharts": "^3.8.1",
+    "redux-persist": "^6.0.0",
+    "tailwind-merge": "^3.5.0",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/redux-persist": "^4.0.0",
+    "autoprefixer": "^10.4.27",
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.3",
-    "tailwindcss": "^4",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^4.0.0",
     "typescript": "^5"
   }
 }
