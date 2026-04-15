@@ -5,13 +5,9 @@ import { Search } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { cn } from "@/lib/utils";
-
-interface Column<T> {
-  key: string;
-  header: string;
-  render: (item: T) => ReactNode;
-  className?: string;
-}
+import { MobileCardView } from "./MobileCardView";
+import { DesktopTableView } from "./DesktopTableView";
+import { Column } from "@/types/table.types";
 
 interface DataTableProps<T> {
   data: T[];
@@ -45,83 +41,51 @@ export function DataTable<T extends { id: string }>({
   return (
     <div
       className={cn(
-        "rounded-2xl bg-form-bg border border-border-light",
+        "rounded-2xl bg-form-bg border border-border-light px-5",
         className,
       )}
     >
-      <div className="px-5">
-        {/* Header Section */}
-        {showHeader && (
-          <div className="flex items-center justify-between py-5 px-1 border-b border-border-light">
-            {title && (
-              <h3 className="text-base font-bold text-white">{title}</h3>
+      {/* Header Section */}
+      {showHeader && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-5 px-1">
+          {title && <h3 className="text-base font-bold text-white">{title}</h3>}
+
+          <div
+            className={cn(
+              "flex flex-col sm:flex-row items-stretch sm:items-center gap-3",
+              !title && "w-full",
             )}
-
-            <div className={cn("flex items-center gap-3", !title && "ml-auto")}>
-              {showSearch && (
-                <div className="relative w-[237px]">
-                  <Input
-                    placeholder={searchPlaceholder}
-                    onChange={(e) => onSearch?.(e.target.value)}
-                    className="h-9 bg-white/10 border-border-light pl-9"
-                  />
-                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white-secondary" />
-                </div>
-              )}
-              {headerAction}
-            </div>
+          >
+            {showSearch && (
+              <div className="relative w-full sm:w-[237px]">
+                <Input
+                  placeholder={searchPlaceholder}
+                  onChange={(e) => onSearch?.(e.target.value)}
+                  className="h-9 bg-white/10 border-border-light pl-9 w-full"
+                />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white-secondary" />
+              </div>
+            )}
+            {headerAction && (
+              <div className="w-full sm:w-auto">{headerAction}</div>
+            )}
           </div>
-        )}
-
-        {/* Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-[rgba(254,254,254,0.10)]">
-                {columns.map((column) => (
-                  <th
-                    key={column.key}
-                    className={cn(
-                      "px-5 py-4 text-left text-xs font-medium text-white",
-                      column.className,
-                    )}
-                  >
-                    {column.header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {displayData.length > 0 ? (
-                displayData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="border-b border-border-light last:border-0 rounded-lg"
-                  >
-                    {columns.map((column) => (
-                      <td
-                        key={column.key}
-                        className={cn("px-5 py-4", column.className)}
-                      >
-                        {column.render(item)}
-                      </td>
-                    ))}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td
-                    colSpan={columns.length}
-                    className="px-5 py-8 text-center text-white-secondary"
-                  >
-                    {emptyMessage}
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
         </div>
-      </div>
+      )}
+
+      {/* Mobile View */}
+      <MobileCardView
+        data={displayData}
+        columns={columns}
+        emptyMessage={emptyMessage}
+      />
+
+      {/* Desktop View */}
+      <DesktopTableView
+        data={displayData}
+        columns={columns}
+        emptyMessage={emptyMessage}
+      />
     </div>
   );
 }
