@@ -50,6 +50,11 @@ export const renderDate = (date: string) => (
   </span>
 );
 
+// Stops renderer
+export const renderStops = (stops: number) => (
+  <span className="text-sm text-white">{stops}</span>
+);
+
 // Actions renderer
 export const renderActions = (
   user: User,

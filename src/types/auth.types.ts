@@ -14,6 +14,7 @@ export interface User {
   age?: number;
   joiningDate?: string;
   status?: UserStatus;
+  stops?: number;
 }
 
 export interface LoginCredentials {

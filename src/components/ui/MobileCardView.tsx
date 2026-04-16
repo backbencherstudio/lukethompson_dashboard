@@ -62,11 +62,11 @@ export function MobileCardView<T extends { id: string }>({
                 <div
                   key={column.key}
                   className={cn(
-                    "flex items-start gap-3",
+                    "flex items-center gap-1",
                     index === 0 && "pb-2 border-b border-border-light",
                   )}
                 >
-                  <span className="text-xs font-medium text-white-secondary min-w-[80px]">
+                  <span className="text-xs font-medium text-white-secondary min-w-[40px]">
                     {column.header}
                   </span>
                   <div className="flex-1 text-sm text-white break-words">
@@ -77,11 +77,11 @@ export function MobileCardView<T extends { id: string }>({
 
               {/* Show actions on mobile if exists */}
               {actionsColumn && (
-                <div className="flex items-start gap-3 pt-2">
-                  <span className="text-xs font-medium text-white-secondary min-w-[80px]">
+                <div className="flex items-center justify-between gap-3 pt-2">
+                  <span className="text-xs font-medium text-white-secondary min-w-[40px]">
                     {actionsColumn.header}
                   </span>
-                  <div className="flex-1 text-sm text-white">
+                  <div className="flex-1 text-sm text-white text-end">
                     {actionsColumn.render(item)}
                   </div>
                 </div>
@@ -112,9 +112,9 @@ export function MobileCardView<T extends { id: string }>({
                     {extraColumns.map((column) => (
                       <div
                         key={column.key}
-                        className="flex items-start gap-3 pt-3"
+                        className="flex items-center gap-3 pt-3"
                       >
-                        <span className="text-xs font-medium text-white-secondary min-w-[80px]">
+                        <span className="text-xs font-medium text-white-secondary min-w-[40px]">
                           {column.header}
                         </span>
                         <div className="flex-1 text-sm text-white break-words">

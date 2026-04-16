@@ -2,12 +2,12 @@
 
 import { ReactNode } from "react";
 import { Search } from "lucide-react";
-import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { cn } from "@/lib/utils";
-import { MobileCardView } from "./MobileCardView";
+import { Pagination } from "@/components/ui/Pagination";
 import { DesktopTableView } from "./DesktopTableView";
+import { MobileCardView } from "./MobileCardView";
 import { Column } from "@/types/table.types";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<T> {
   data: T[];
@@ -21,6 +21,11 @@ interface DataTableProps<T> {
   maxRows?: number;
   emptyMessage?: string;
   className?: string;
+  pagination?: {
+    currentPage: number;
+    totalPages: number;
+    onPageChange: (page: number) => void;
+  };
 }
 
 export function DataTable<T extends { id: string }>({
@@ -35,25 +40,25 @@ export function DataTable<T extends { id: string }>({
   maxRows,
   emptyMessage = "No data found",
   className,
+  pagination,
 }: DataTableProps<T>) {
   const displayData = maxRows ? data.slice(0, maxRows) : data;
 
   return (
     <div
       className={cn(
-        "rounded-2xl bg-form-bg border border-border-light px-5",
+        "rounded-2xl bg-form-bg border border-border-light",
         className,
       )}
     >
-      {/* Header Section */}
       {showHeader && (
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-5 px-1">
+        <div className="flex flex-col gap-4 p-5  sm:flex-row sm:items-center sm:justify-between">
           {title && <h3 className="text-base font-bold text-white">{title}</h3>}
 
           <div
             className={cn(
-              "flex flex-col sm:flex-row items-stretch sm:items-center gap-3",
-              !title && "w-full",
+              "flex flex-col gap-3 sm:flex-row sm:items-center",
+              !title && "sm:ml-auto",
             )}
           >
             {showSearch && (
@@ -61,31 +66,36 @@ export function DataTable<T extends { id: string }>({
                 <Input
                   placeholder={searchPlaceholder}
                   onChange={(e) => onSearch?.(e.target.value)}
-                  className="h-9 bg-white/10 border-border-light pl-9 w-full"
+                  className="h-9 bg-white/10 border-border-light pl-9"
                 />
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white-secondary" />
               </div>
             )}
-            {headerAction && (
-              <div className="w-full sm:w-auto">{headerAction}</div>
-            )}
+            {headerAction}
           </div>
         </div>
       )}
 
-      {/* Mobile View */}
+      <DesktopTableView
+        data={displayData}
+        columns={columns}
+        emptyMessage={emptyMessage}
+      />
       <MobileCardView
         data={displayData}
         columns={columns}
         emptyMessage={emptyMessage}
       />
 
-      {/* Desktop View */}
-      <DesktopTableView
-        data={displayData}
-        columns={columns}
-        emptyMessage={emptyMessage}
-      />
+      {pagination && !maxRows && pagination.totalPages > 1 && (
+        <div className="border-t border-border-light px-5 py-4">
+          <Pagination
+            currentPage={pagination.currentPage}
+            totalPages={pagination.totalPages}
+            onPageChange={pagination.onPageChange}
+          />
+        </div>
+      )}
     </div>
   );
 }

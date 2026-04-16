@@ -17,7 +17,7 @@ export function DesktopTableView<T extends { id: string }>({
   const visibleColumns = columns.filter((col) => !col.mobileHidden);
 
   return (
-    <div className="hidden md:block overflow-x-auto">
+    <div className="hidden md:block overflow-x-auto px-5">
       <table className="w-full">
         <thead>
           <tr>

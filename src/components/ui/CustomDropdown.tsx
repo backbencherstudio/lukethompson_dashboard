@@ -56,24 +56,26 @@ export const CustomDropdown = ({
           style={{ width }}
         >
           <div className="flex flex-col ">
-            {options.map((option) => (
-              <button
-                key={option.value}
-                onClick={() => {
-                  option.onClick?.();
-                  setIsOpen(false);
-                }}
-                className={cn(
-                  "flex w-full items-center gap-2 px-4 py-2.5 text-sm transition-all duration-200",
-                  option.className || "text-white hover:bg-white/10",
-                )}
-              >
-                {option.icon && (
-                  <span className="flex-shrink-0">{option.icon}</span>
-                )}
-                <span className="flex-1 text-left">{option.label}</span>
-              </button>
-            ))}
+            <div className="p-2">
+              {options.map((option) => (
+                <button
+                  key={option.value}
+                  onClick={() => {
+                    option.onClick?.();
+                    setIsOpen(false);
+                  }}
+                  className={cn(
+                    "flex w-full items-center gap-2 px-4 py-2.5 text-sm transition-all duration-200 rounded-lg text-center",
+                    option.className || "text-white hover:bg-white/10",
+                  )}
+                >
+                  {option.icon && (
+                    <span className="flex-shrink-0">{option.icon}</span>
+                  )}
+                  <span className="flex-1 text-left">{option.label}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
