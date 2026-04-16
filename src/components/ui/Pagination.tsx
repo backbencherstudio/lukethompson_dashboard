@@ -59,7 +59,7 @@ export const Pagination = ({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className={cn(
-          "flex p-2 items-center justify-center rounded-lg border transition-all duration-200",
+          "flex p-2 items-center justify-center rounded-lg border transition-all duration-200 cursor-pointer",
           currentPage === 1
             ? "cursor-not-allowed border-border-light text-white-secondary opacity-50"
             : "border-green-success text-white hover:bg-green-success hover:text-black",
@@ -67,8 +67,8 @@ export const Pagination = ({
         aria-label="Previous page"
       >
         <div className="flex items-center gap-1">
-          <ChevronLeft size={18} />
-          <span>Previous</span>
+          <ChevronLeft className="cursor-pointer" size={18} />
+          <span className="cursor-pointer">Previous</span>
         </div>
       </button>
 
@@ -87,7 +87,7 @@ export const Pagination = ({
               key={page}
               onClick={() => onPageChange(page as number)}
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-all duration-200",
+                "flex h-10 w-10 items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer",
                 currentPage === page
                   ? "bg-green-success text-black"
                   : "text-white-secondary hover:bg-white/10 hover:text-white",
@@ -106,7 +106,7 @@ export const Pagination = ({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className={cn(
-          "flex p-2 items-center justify-center rounded-lg border transition-all duration-200",
+          "flex p-2 items-center justify-center rounded-lg border transition-all duration-200 cursor-pointer",
           currentPage === totalPages
             ? "cursor-not-allowed border-border-light text-white-secondary opacity-50"
             : "border-green-success text-white hover:bg-green-success hover:text-black",
@@ -114,8 +114,8 @@ export const Pagination = ({
         aria-label="Next page"
       >
         <div className="flex items-center gap-1">
-          <span>Next</span>
-          <ChevronRight size={18} />
+          <span className="cursor-pointer">Next</span>
+          <ChevronRight className="cursor-pointer" size={18} />
         </div>
       </button>
     </div>

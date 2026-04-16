@@ -98,7 +98,7 @@ export const renderActions = (
       options={dropdownOptions}
       trigger={
         <button className="rounded p-1 text-white-secondary hover:bg-white/10 hover:text-white">
-          <MoreHorizontal size={18} />
+          <MoreHorizontal className="cursor-pointer" size={18} />
         </button>
       }
     />

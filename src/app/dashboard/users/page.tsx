@@ -1,8 +1,8 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { DataTable } from "@/components/ui/DataTable";
 import { StatsCard } from "@/components/dashboard/StatsCard";
+import { UserDetailView } from "@/components/users/UserDetailsView";
 import { UserManagementIcon } from "@/components/ui/icons/UserManagementIcon";
 import { MonthlyRevenueIcon } from "@/components/ui/icons/MonthlyRevenueIcon";
 import { SubscriptionIcon } from "@/components/ui/icons/SubscriptionIcon";
@@ -10,25 +10,22 @@ import { StopsTodayIcon } from "@/components/ui/icons/StopsTodayIcon";
 import { createUserColumns } from "@/config/user-table.config";
 import { useUsers } from "@/hooks/useUsers";
 import { mockDashboardStats } from "@/lib/api/dashboard.mock";
-import { User } from "@/types";
 
 export default function UsersPage() {
-  const router = useRouter();
   const stats = mockDashboardStats;
 
   const {
     users,
     currentPage,
     totalPages,
+    selectedUser,
     handleSearch,
+    handleViewUser,
+    handleCloseDetail,
     handleBanUser,
     handleDeleteUser,
     handlePageChange,
   } = useUsers({ itemsPerPage: 8 });
-
-  const handleViewUser = (user: User) => {
-    router.push(`/dashboard/users/${user.id}`);
-  };
 
   const columns = createUserColumns({
     onView: handleViewUser,
@@ -37,6 +34,16 @@ export default function UsersPage() {
     showEye: true,
   });
 
+  // Show detail view if a user is selected
+  if (selectedUser) {
+    return (
+      <div className="">
+        <UserDetailView user={selectedUser} onBack={handleCloseDetail} />
+      </div>
+    );
+  }
+
+  // Show table view with stats cards
   return (
     <div className="space-y-6 p-4 sm:p-6">
       {/* Stats Cards */}
