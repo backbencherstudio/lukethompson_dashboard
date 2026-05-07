@@ -11,7 +11,7 @@ export const Logo = () => {
         height={50}
         className="rounded-lg"
       />
-      <span className="text-lg font-bold text-white">DetentionPay</span>
+      <span className="text-lg font-bold text-white">Get<span className="text-green-success">Dock</span>Pay</span>
     </div>
   );
 };
