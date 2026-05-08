@@ -10,15 +10,24 @@ export const useSubscription = () => {
     const [deleteTarget, setDeleteTarget] = useState<SubscriptionPlan | null>(null);
     const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null);
     const [isAddingPlan, setIsAddingPlan] = useState(false);
+    const [successMessage, setSuccessMessage] = useState('');
 
     const stats = mockSubscriptionStats;
 
     // Edit handlers
     const handleEditPlan = useCallback((plan: SubscriptionPlan) => {
         setEditingPlan(plan);
+        setIsAddingPlan(false);
     }, []);
 
     const handleCloseEdit = useCallback(() => {
+        setEditingPlan(null);
+        setIsAddingPlan(false);
+    }, []);
+
+    // Add handlers
+    const handleAddPlan = useCallback(() => {
+        setIsAddingPlan(true);
         setEditingPlan(null);
     }, []);
 
@@ -37,13 +46,13 @@ export const useSubscription = () => {
         setDeleteTarget(null);
     }, []);
 
-    // Add handlers
-    const handleAddPlan = useCallback(() => {
-        setIsAddingPlan(true);
+    // Success handlers
+    const handleShowSuccess = useCallback((message: string) => {
+        setSuccessMessage(message);
     }, []);
 
-    const handleCloseAdd = useCallback(() => {
-        setIsAddingPlan(false);
+    const handleCloseSuccess = useCallback(() => {
+        setSuccessMessage('');
     }, []);
 
     return {
@@ -52,12 +61,14 @@ export const useSubscription = () => {
         deleteTarget,
         editingPlan,
         isAddingPlan,
+        successMessage,
         handleEditPlan,
         handleCloseEdit,
         handleAddPlan,
-        handleCloseAdd,
         handleDeleteClick,
         handleDeleteConfirm,
         handleDeleteCancel,
+        handleShowSuccess,
+        handleCloseSuccess,
     };
 };

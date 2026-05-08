@@ -1,27 +1,29 @@
 'use client';
-import { useState } from 'react';
-import { SubscriptionPlan } from '@/types/subscription.types';
+
 import { PlanCard } from '@/components/subscription/PlanCard';
 import { AddPlanCard } from '@/components/subscription/AddPlanCard';
 import { DeletePlanModal } from '@/components/subscription/DeletePlanModal';
+import { EditPlanModal } from '@/components/subscription/EditPlanModal';
+import { SuccessModal } from '@/components/subscription/SuccessModal';
 import { useSubscription } from '@/hooks/useSubscription';
-import { Modal } from '@/components/ui/Modal';
 
 export default function SubscriptionPage() {
   const {
     plans,
     deleteTarget,
+    editingPlan,
+    isAddingPlan,
+    successMessage,
     handleEditPlan,
+    handleCloseEdit,
     handleAddPlan,
     handleDeleteClick,
     handleDeleteConfirm,
     handleDeleteCancel,
+    handleShowSuccess,
+    handleCloseSuccess,
   } = useSubscription();
-  const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null)
 
-  const handleEditPlanWithModal = (plan: SubscriptionPlan) => {
-    setEditingPlan(plan);
-  };
   return (
     <div className="space-y-8 p-6">
       {/* Header */}
@@ -51,18 +53,20 @@ export default function SubscriptionPage() {
         onConfirm={handleDeleteConfirm}
       />
 
-      {/* Edit Plan Modal */}
-      <Modal
-        isOpen={!!editingPlan}
-        onClose={() => setEditingPlan(null)}
-        title={`Edit ${editingPlan?.name}`}
-        size='xl'
-      >
-        <div className="space-y-4">
-          <p>Edit form coming soon...</p>
-        </div>
-      </Modal>
+      {/* Edit / Add Plan Modal */}
+      <EditPlanModal
+        editingPlan={editingPlan}
+        isAdding={isAddingPlan}
+        handleCloseEdit={handleCloseEdit}
+        onSuccess={handleShowSuccess}
+      />
 
+      {/* Success Modal */}
+      <SuccessModal
+        isOpen={!!successMessage}
+        onClose={handleCloseSuccess}
+        message={successMessage}
+      />
     </div>
   );
-};
+}
