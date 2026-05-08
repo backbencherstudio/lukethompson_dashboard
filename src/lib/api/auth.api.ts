@@ -18,9 +18,11 @@ const USE_MOCK = true; // Toggle this to switch between mock and real API
 
 export const authApi = {
   login: async (credentials: LoginCredentials): Promise<AuthResponse> => {
+    console.log("AuthAPI login call:", credentials);
     if (USE_MOCK) {
       return mockLogin(credentials.email, credentials.password);
     }
+
 
     const response = await apiClient.post<ApiResponse<AuthResponse>>(
       "/auth/login",

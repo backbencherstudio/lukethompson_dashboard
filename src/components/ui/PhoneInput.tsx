@@ -2,7 +2,6 @@
 
 import 'react-phone-number-input/style.css';
 import PhoneInputLib from 'react-phone-number-input';
-import { useState } from 'react';
 
 interface PhoneInputProps {
     label: string;

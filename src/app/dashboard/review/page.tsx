@@ -20,7 +20,6 @@ export default function ReviewPage() {
         selectedReview,
         handleSearch,
         handleViewReview,
-        handleCloseDetail,
         handleDeleteReview,
         handlePageChange,
     } = useReview({ itemsPerPage: 8 });

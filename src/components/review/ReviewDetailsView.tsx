@@ -4,10 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { ArrowLeft, Search } from "lucide-react";
 import { User } from "@/types";
-import { Input } from "@/components/ui/Input";
 import { Pagination } from "@/components/ui/Pagination";
 import { mockStopLogs, StopLog } from "@/lib/api/stop-logs.mock";
-import { cn } from "@/lib/utils";
 
 interface ReviewDetailsViewProps {
     user: User;

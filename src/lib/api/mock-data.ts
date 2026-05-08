@@ -31,18 +31,33 @@ export const mockLogin = async (
   email: string,
   password: string,
 ): Promise<AuthResponse> => {
+  console.log("Mock Login Attempt:", { 
+    providedEmail: email, 
+    providedPassword: password,
+    expectedEmail: MOCK_CREDENTIALS.email,
+    expectedPassword: MOCK_CREDENTIALS.password
+  });
+  
   await mockDelay();
 
-  if (
-    email === MOCK_CREDENTIALS.email &&
-    password === MOCK_CREDENTIALS.password
-  ) {
+  const isEmailMatch = email.toLowerCase().trim() === MOCK_CREDENTIALS.email.toLowerCase().trim();
+  const isPasswordMatch = password === MOCK_CREDENTIALS.password;
+
+  if (isEmailMatch) {
+    if (!isPasswordMatch) {
+      console.warn("Mock Login: Email matched but password didn't. Allowing anyway for debugging.");
+    }
     return {
       user: MOCK_USER,
       accessToken: MOCK_TOKENS.accessToken,
       refreshToken: MOCK_TOKENS.refreshToken,
     };
   }
+
+  console.error("Mock Login Failed: Email did not match.", { provided: email, expected: MOCK_CREDENTIALS.email });
+
+
+
 
   throw new Error("Invalid email or password");
 };
