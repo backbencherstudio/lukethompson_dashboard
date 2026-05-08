@@ -39,7 +39,7 @@ export const PasswordInput = ({
                     onClick={() => setShow(!show)}
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-white-secondary hover:text-white transition-colors"
                 >
-                    {show ? <EyeClosed size={20} /> : <Eye size={20} />}
+                    {show ? <Eye size={20} /> : <EyeClosed size={20} />}
                 </button>
             </div>
             {error && <span className="text-xs text-error-red">{error}</span>}
