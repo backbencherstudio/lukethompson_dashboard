@@ -40,7 +40,7 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         <Navbar onMenuClick={() => setIsMobileSidebarOpen(true)} />
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+        <main className="flex-1 overflow-y-auto custom-scrollbar">
           {children}
         </main>
       </div>

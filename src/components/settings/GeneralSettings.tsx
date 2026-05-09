@@ -113,7 +113,13 @@ export const GeneralSettings = ({ profile, isLoading, onSave, onAvatarChange }: 
           <FormInput label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} placeholder="Enter first name" />
           <FormInput label="Last Name" value={lastName} onChange={(e) => setLastName(e.target.value)} placeholder="Enter last name" />
           <FormInput label="Email Address" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email address" />
-          <PhoneInput label="Phone Number" value={phone} onChange={setPhone} placeholder="Enter phone number" />
+          <PhoneInput
+            label="Phone Number"
+            onChange={setPhone}
+            value={phone}
+            placeholder="Enter phone number"
+          />
+
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-start">

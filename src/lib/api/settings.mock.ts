@@ -4,5 +4,5 @@ export const mockProfile: ProfileData = {
     firstName: 'Kristin',
     lastName: 'Rodriguez',
     email: 'kristin@example.com',
-    phone: '+1 234 567 890',
+    phone: '+1234567890',
 };

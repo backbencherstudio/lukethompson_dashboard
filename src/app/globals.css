@@ -16,6 +16,7 @@
   --color-border-medium: rgba(254, 254, 254, 0.50);
 
   --font-family-liberation: "Liberation Sans", sans-serif;
+  --font-arimo: var(--font-arimo);
 
   --radius-lg: 12px;
   --radius-xl: 32px;
@@ -41,6 +42,7 @@
     font-family: var(--font-family-liberation);
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
   }
@@ -87,77 +89,7 @@
   }
 }
 
-/* Phone Input Dark Theme */
-.PhoneInput {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 16px;
-  height: 48px;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  background: rgba(255, 255, 255, 0.08);
-}
 
-.PhoneInput:focus-within {
-  ring: 2px solid #33D17A;
-}
-
-.PhoneInputCountry {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.PhoneInputCountrySelect {
-  background: transparent !important;
-  border: none !important;
-  color: #fff !important;
-}
-
-.PhoneInputCountrySelectArrow {
-  margin-left: 4px;
-  color: #8DA2B8 !important;
-  opacity: 1 !important;
-}
-
-.PhoneInputInput {
-  flex: 1;
-  background: transparent !important;
-  border: none !important;
-  color: #fff !important;
-  font-size: 14px;
-  outline: none;
-}
-
-.PhoneInputInput::placeholder {
-  color: #8DA2B8;
-}
-
-.PhoneInputCountryIcon {
-  border-radius: 2px;
-}
-
-.PhoneInputCountryIcon--border {
-  box-shadow: none !important;
-}
-
-/* Country Dropdown - Dark Theme */
-.PhoneInputCountrySelectArrow {
-  border-top-color: #8DA2B8 !important;
-}
-
-/* Override the white dropdown */
-select.PhoneInputCountrySelect {
-  background-color: #111926 !important;
-  color: #fff !important;
-}
-
-select.PhoneInputCountrySelect option {
-  background-color: #111926 !important;
-  color: #fff !important;
-}
 
 @theme inline {
   --font-heading: var(--font-sans);

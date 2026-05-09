@@ -1,40 +1,71 @@
 'use client';
 
-import 'react-phone-number-input/style.css';
-import PhoneInputLib from 'react-phone-number-input';
+import { useState, forwardRef } from 'react';
+import { cn } from '@/lib/utils';
+import { CountryDropdown } from './CountryDropdown';
+import { CountryOption, getAllCountries, getMaxLength } from '@/lib/data/countries';
 
 interface PhoneInputProps {
     label: string;
-    value: string;
+    value?: string;
     onChange: (value: string) => void;
-    error?: string;
     placeholder?: string;
+    defaultCountry?: string;
+    error?: string;
 }
 
-export const PhoneInput = ({
-    label,
-    value,
-    onChange,
-    error,
-    placeholder = 'Enter phone number',
-}: PhoneInputProps) => {
-    return (
-        <div className="flex w-full flex-col gap-2">
-            <label className="text-base font-bold text-white">{label}</label>
-            <PhoneInputLib
-                international
-                defaultCountry="US"
-                value={value}
-                onChange={(val) => onChange(val || '')}
-                placeholder={placeholder}
-                className="w-full rounded border border-white/5 bg-white/8 text-sm text-white placeholder:text-white-secondary focus:outline-none focus:ring-2 focus:ring-green-success transition-all"
-                style={{
-                    '--PhoneInputCountryFlag-height': '20px',
-                    '--PhoneInputCountrySelectArrow-color': '#8DA2B8',
-                    '--PhoneInputCountrySelectArrow-opacity': '1',
-                } as React.CSSProperties}
-            />
-            {error && <span className="text-xs text-error-red">{error}</span>}
-        </div>
-    );
-};
+export const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
+    ({ label, onChange, value = '', placeholder, defaultCountry = 'US', error }, ref) => {
+        const allCountries = getAllCountries();
+        const [selectedCountry, setSelectedCountry] = useState<CountryOption>(
+            allCountries.find(c => c.code === defaultCountry) || allCountries[0]
+        );
+        const [phoneNumber, setPhoneNumber] = useState('');
+
+        const handleCountrySelect = (country: CountryOption) => {
+            setSelectedCountry(country);
+            setPhoneNumber('');
+            onChange(country.dialCode);
+        };
+
+        const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+            const raw = e.target.value.replace(/\D/g, '');
+            const dialCodeDigits = selectedCountry.dialCode.replace(/\D/g, '');
+            let numberWithoutCode = raw;
+
+            if (raw.startsWith(dialCodeDigits)) {
+                numberWithoutCode = raw.slice(dialCodeDigits.length);
+            }
+
+            if (numberWithoutCode.length > getMaxLength(selectedCountry.code)) return;
+
+            const formatted = selectedCountry.dialCode + numberWithoutCode;
+            setPhoneNumber(numberWithoutCode);
+            onChange(formatted);
+        };
+
+        return (
+            <div className="flex w-full flex-col gap-2">
+                <label className="text-base font-bold text-white">{label}</label>
+                <div className={cn(
+                    'flex items-center gap-2 rounded border border-white/5 bg-white/8 px-2 focus-within:ring-2 focus-within:ring-green-success transition-all',
+                    error && 'border-error-red focus-within:ring-error-red'
+                )}>
+                    <CountryDropdown selected={selectedCountry} onSelect={handleCountrySelect} />
+                    <input
+                        ref={ref}
+                        value={phoneNumber}
+                        onChange={handlePhoneChange}
+                        placeholder={placeholder || 'Enter phone number'}
+                        type="tel"
+                        autoComplete="tel"
+                        className="flex-1 border-none bg-transparent py-4 text-sm text-white placeholder:text-white-secondary outline-none"
+                    />
+                </div>
+                {error && <span className="text-xs text-error-red">{error}</span>}
+            </div>
+        );
+    }
+);
+
+PhoneInput.displayName = 'PhoneInput';
