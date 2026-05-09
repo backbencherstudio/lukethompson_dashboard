@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { store, persistor } from "@/lib/redux/store";
 import { useState } from "react";
+import { LoadingPage } from "@/components/shared/LoadingPage";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(
@@ -23,7 +24,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<LoadingPage />} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           {children}
           <Toaster

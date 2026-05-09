@@ -14,6 +14,7 @@ import { createUserColumns } from "@/config/user-table.config";
 import { useDashboardUsers } from "@/hooks/useDashboardUsers";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
 import { User } from "@/types";
+import { LoadingPage } from "@/components/shared/LoadingPage";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -25,7 +26,9 @@ export default function DashboardPage() {
     router.push(`/dashboard/users/${user.id}`);
   };
 
-  if (isLoading || !stats || !revenueData || !planBreakdown) return null;
+  if (isLoading || !stats || !revenueData || !planBreakdown) {
+    return <LoadingPage />;
+  }
 
   const userColumns = createUserColumns({
     onView: handleViewUser,

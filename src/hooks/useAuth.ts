@@ -41,6 +41,7 @@ export const useAuth = () => {
         }
 
         toast.success("Login successful!");
+        router.refresh();
         router.push(ROUTES.DASHBOARD);
       } catch (err) {
         const message = err instanceof Error ? err.message : "Login failed";
@@ -141,7 +142,12 @@ export const useAuth = () => {
         document.cookie = "emailForReset=; path=/; max-age=0";
       }
 
-      router.push(ROUTES.LOGIN);
+      // FORCE FULL RELOAD ON LOGOUT TO ENSURE CLEAN STATE
+      if (typeof window !== "undefined") {
+        window.location.href = ROUTES.LOGIN;
+      } else {
+        router.push(ROUTES.LOGIN);
+      }
       toast.success("Logged out successfully");
     } catch (err) {
       dispatch(logoutAction());
@@ -150,9 +156,10 @@ export const useAuth = () => {
       if (typeof window !== "undefined") {
         document.cookie = "accessToken=; path=/; max-age=0";
         document.cookie = "refreshToken=; path=/; max-age=0";
+        window.location.href = ROUTES.LOGIN;
+      } else {
+        router.push(ROUTES.LOGIN);
       }
-
-      router.push(ROUTES.LOGIN);
     }
   }, [dispatch, router]);
 
